@@ -1,0 +1,34 @@
+name: StopThatBlockGlitcher
+author: MortuTBK
+description: Stop block glitching forever!
+website: http://ci.mortu.net/job/StopThatBlockGlitcher/
+main: net.mortu.stopthatblockglitcher.StopThatBlockGlitcher
+version: 1.0
+commands:
+  damage:
+    description: Damages the specified player the specified amount.
+    usage: |
+      /<command> <player> <amount>
+      Example: /<command> MortuTBK 1 - deals 1/2 heart to MortuTBK
+      Example: /<command> MortuTBK 10 - deals 5 hearts to MortuTBK
+    permissions: stbg.damage
+    permission-message: You do not have permission to use that command.
+    aliases: [dg, stbgdg]
+  stbg:
+    description: Reloads the StopThatBlockGlitcher configuration.
+    usage: /<command> - reloads the StopThatBlockGlitcher configuration
+    permissions: stbg.reload
+    permission-message: You do not have permission to use that command.
+permissions:
+  stbg.*:
+    description: Gives access to all StopThatBlockGlitcher commands.
+    children:
+      stbg.damage: true
+      stbg.reload: true
+      stbg.bypass: true
+  stbg.damage:
+    description: Allows you to deal damage to a player.
+  stbg.reload:
+    description: Allows you to reload the StopThatBlockGlitcher configuration.
+  stbg.bypass:
+    description: Allows the player to be exempted from all glitch checks.

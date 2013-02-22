@@ -1,0 +1,48 @@
+# In all *-commands lists you may use the following format characters/strings:
+#
+# (case matters for the following options)
+# Use PLAYER to indicate the player name in the command.
+# Use BREAKS to indicate how many breaks the player current has against them.
+# Use LIMIT to indicate the break-threshold to the player.
+#
+# Use % as the first character to indicate something the player should say in chat.
+# Use @ as the first character to indicate commands that should be run as the player.
+# Use ^ as the first character to indicate something that should be run as the server.
+# Use $ as the first character to indicate a message the server should send the player.
+# Use ! as the first character to indicate a message the server should broadcast to all players.
+#
+# Be sure to enclose all commands in "" to ensure proper parsing.
+
+
+# This list establishes the list of commands to run as the player when they
+# start damaging a block.
+damage-commands:
+  - "^damage PLAYER 1"
+
+
+# This list establishes the list of commands to run as the player when they
+# glitch break a block.
+break-commands:
+  - "%I am a block glitcher and I'm leaving the game."
+  - "@leave"
+  - "$&bYou have broken &c&lBREAKS&b block(s) recently, you will be banned at &c&lLIMIT&b blocks."
+
+
+# This setting controls how often, in seconds, to check if a players block
+# glitches have expired.  Use this combined with break-threshold to determine
+# how many glitches per interval are allowed before the exceeded-commands run.
+aging-interval: 600
+
+
+# This setting controls how many glitches, per aging-interval, a player is
+# allowed to have before the exceeded-commands are run.
+break-threshold: 3
+
+
+# This list establishes the list of commands to run when the player exceeds the
+# specified break-threshold within an aging-interval.
+exceeded-commands:
+  - "%I have block glitched too much and have been forced to leave."
+  - "^kick PLAYER &cBlock glitching is not allowed."
+  - "^tempban PLAYER 3d"
+  - "!&c[&6&lECB&c] Banned &6PLAYER&c for &63&c days for block glitching!"
