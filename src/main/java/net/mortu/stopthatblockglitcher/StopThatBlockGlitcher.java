@@ -71,6 +71,8 @@ public class StopThatBlockGlitcher extends JavaPlugin implements Listener {
 		
 		if (player.isOp() || player.hasPermission("stbg.bypass"))
 			return;
+		if (getConfig().getIntegerList("allow-block-ids").contains(event.getBlock().getTypeId()))
+			return;
 		
 		runCommands("damage-commands", player);
 		
@@ -82,6 +84,8 @@ public class StopThatBlockGlitcher extends JavaPlugin implements Listener {
 		Player player = event.getPlayer();
 		
 		if (player.isOp() || player.hasPermission("stbg.bypass"))
+			return;
+		if (getConfig().getIntegerList("allow-block-ids").contains(event.getBlock().getTypeId()))
 			return;
 		
 		if (!glitchTimes.containsKey(player.getName()))

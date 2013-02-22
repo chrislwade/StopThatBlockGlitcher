@@ -14,6 +14,11 @@
 # Be sure to enclose all commands in "" to ensure proper parsing.
 
 
+# Allow the following blocks to be damaged/broken without affecting the player.
+allow-block-ids:
+  - 63
+
+
 # This list establishes the list of commands to run as the player when they
 # start damaging a block.
 damage-commands:
