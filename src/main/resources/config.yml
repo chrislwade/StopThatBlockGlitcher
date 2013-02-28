@@ -57,3 +57,7 @@ exceeded-commands:
   - "^kick PLAYER &cBlock glitching is not allowed."
   - "^tempban PLAYER 3d"
   - "!&c[&6&lECB&c] Banned &6PLAYER&c for &63&c days for block glitching!"
+
+
+# Should the plugin stop crafting entire?
+prevent-crafting: true

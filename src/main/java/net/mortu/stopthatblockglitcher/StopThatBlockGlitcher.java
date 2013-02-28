@@ -18,6 +18,7 @@ public class StopThatBlockGlitcher extends JavaPlugin implements Listener {
 	
 	private BlockGlitchAgingTask blockGlitchAgingTask;
 	private BlockGlitchListener blockGlitchListener;
+	private CraftListener craftListener;
 	private Map<String, List<Date>> glitchTimes;
 	
 	@Override
@@ -30,13 +31,16 @@ public class StopThatBlockGlitcher extends JavaPlugin implements Listener {
 
 		glitchTimes = new HashMap<String, List<Date>>();
 		getServer().getPluginManager().registerEvents(blockGlitchListener = new BlockGlitchListener(this), this);
+		getServer().getPluginManager().registerEvents(craftListener = new CraftListener(this), this);
 		startTasks();
 	}
 	
 	@Override
 	public void onDisable() {
 		stopTasks();
+		HandlerList.unregisterAll(craftListener);
 		HandlerList.unregisterAll(blockGlitchListener);
+		craftListener = null;
 		blockGlitchListener = null;
 		glitchTimes = null;
 	}
