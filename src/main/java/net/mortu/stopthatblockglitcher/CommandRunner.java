@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class CommandRunner {
 	
-	public void run(String command, Player player, Map<String, String> substitutions) {
+	public static void run(String command, Player player, Map<String, String> substitutions) {
 		String cmd = Utils.formatMessage(command.substring(1));
 		
 		for (Entry<String, String> substitution : substitutions.entrySet())
@@ -31,8 +31,7 @@ public class CommandRunner {
 			break;
 		
 		case '!':
-			for (Player recipient : player.getServer().getOnlinePlayers())
-				recipient.sendMessage(cmd);
+			player.getServer().broadcastMessage(cmd);
 			break;
 		}
 	}

@@ -1,5 +1,10 @@
 package net.mortu.stopthatblockglitcher.tasks;
 
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+
 import net.mortu.stopthatblockglitcher.StopThatBlockGlitcher;
 
 public class BlockGlitchAgingTask implements Runnable {
@@ -18,7 +23,23 @@ public class BlockGlitchAgingTask implements Runnable {
 
 	@Override
 	public void run() {
-		plugin.ageBlockGlitches();
+		Long now = (new Date()).getTime();
+		Long interval = plugin.getConfig().getLong("aging-interval", 600L);
+		
+		Iterator<Entry<String, List<Date>>> glitchTimesIterator = plugin.getGlitchTimes().entrySet().iterator();
+		while (glitchTimesIterator.hasNext()) {
+			Entry<String, List<Date>> entry = glitchTimesIterator.next();
+			
+			Iterator<Date> datesIterator = entry.getValue().iterator();
+			while (datesIterator.hasNext()) {
+				Date date = datesIterator.next();
+				if ((now - date.getTime()) / 1000.0 > interval)
+					datesIterator.remove();
+			}
+			
+			if (entry.getValue().isEmpty())
+				glitchTimesIterator.remove();
+		}
 	}
 
 	public boolean stopTask() {
@@ -28,5 +49,5 @@ public class BlockGlitchAgingTask implements Runnable {
 		plugin.getServer().getScheduler().cancelTask(id);
 		return true;
 	}
-
+	
 }
